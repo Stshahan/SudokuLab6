@@ -48,7 +48,8 @@ import pkgGame.Sudoku;
 import pkgHelper.PuzzleViolation;
 
 public class SudokuController implements Initializable {
-
+//Let user fill each square, even if wrong, and keep track of mistakes. Add trashcan or delete onKeyPressedEvent.
+	//if the finished puzzle isn't a sudoku, tell user that they failed.
 	private Game game;
 
 	@FXML
@@ -109,7 +110,7 @@ public class SudokuController implements Initializable {
 	 */
 	private void BuildGrids() {
 
-		// Paint the top grid on the form
+		// Paint the top grid(the place where the actual puzzle is)on the form
 		BuildTopGrid();
 		GridPane gridSudoku = BuildSudokuGrid();
 
@@ -122,7 +123,7 @@ public class SudokuController implements Initializable {
 
 		// Clear the hboxNumbers, add the numbers
 		GridPane gridNumbers = BuildNumbersGrid();
-
+		//This is the portion of the stage that has the draggable numbers for the player to use.
 		hboxNumbers.getChildren().clear();
 		hboxNumbers.setPadding((new Insets(25, 25, 25, 25)));
 		hboxNumbers.getChildren().add(gridNumbers);
@@ -137,6 +138,7 @@ public class SudokuController implements Initializable {
 	 * @param event
 	 */
 	private void BuildTopGrid() {
+		//Top hint grid builder
 		gpTop.getChildren().clear();
 
 		Label lblDifficulty = new Label(eGD.toString());
@@ -165,6 +167,7 @@ public class SudokuController implements Initializable {
 	 * @param event
 	 */
 	private GridPane BuildNumbersGrid() {
+		
 		Sudoku s = this.game.getSudoku();
 		SudokuStyler ss = new SudokuStyler(s);
 		GridPane gridPaneNumbers = new GridPane();
@@ -192,6 +195,8 @@ public class SudokuController implements Initializable {
 			//	Pay close attention... this is the method you must code to make your item draggable.
 			//	If you want a paneTarget draggable (so you can drag it into the trash), you'll have to 
 			//	implement a simliar method
+			//paneSources are draggable
+			//This whole event is what needs to happen to drag.
 			paneSource.setOnDragDetected(new EventHandler<MouseEvent>() {
 				public void handle(MouseEvent event) {
 
@@ -230,7 +235,7 @@ public class SudokuController implements Initializable {
 	 */
 	
 	private GridPane BuildSudokuGrid() {
-
+		//Builds the actual puzzle. 
 		Sudoku s = this.game.getSudoku();
 
 		SudokuStyler ss = new SudokuStyler(s);
@@ -298,7 +303,9 @@ public class SudokuController implements Initializable {
 					}
 				});
 
-				paneTarget.setOnDragExited(new EventHandler<DragEvent>() {
+				paneTarget.setOnDragExited(new EventHandler<DragEvent>() 
+				{
+					//turns off the red in the pane when the mouse leaves the pane while holding the number.
 					public void handle(DragEvent event) {
 						SudokuStyler.RemoveGridStyling(gridPaneSudoku);
 						ObservableList<Node> childs = paneTarget.getChildren();
@@ -308,9 +315,10 @@ public class SudokuController implements Initializable {
 						}
 						event.consume();
 					}
-				});
+				}); 
 
-				paneTarget.setOnDragDropped(new EventHandler<DragEvent>() {
+				paneTarget.setOnDragDropped(new EventHandler<DragEvent>() 
+				{//mistakes here
 					public void handle(DragEvent event) {
 						Dragboard db = event.getDragboard();
 						boolean success = false;
@@ -333,7 +341,7 @@ public class SudokuController implements Initializable {
 								
 								//TODO: Set the message for mistakes
 								if (game.getShowHints()) {
-
+									//insert code here(Ryan)
 								}
 							}
 
