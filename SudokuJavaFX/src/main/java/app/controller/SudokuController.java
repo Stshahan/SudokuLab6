@@ -323,7 +323,12 @@ public class SudokuController implements Initializable {
 						Dragboard db = event.getDragboard();
 						boolean success = false;
 						Cell CellTo = (Cell) paneTarget.getCell();
-
+						
+						//This will keep track of the mistakes.
+						int mistakeCounter = 0;
+						
+						//insert some sort of loop to check mistakes as the game is being played.
+						
 						//TODO: This is where you'll find mistakes.  
 						//		Keep track of mistakes... as an attribute of Sudoku... start the attribute
 						//		at zero, and expose a AddMistake(int) method in Sudoku to add the mistake
