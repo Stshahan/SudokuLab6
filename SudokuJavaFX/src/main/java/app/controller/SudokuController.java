@@ -167,7 +167,7 @@ public class SudokuController implements Initializable {
 	 * @param event
 	 */
 	private GridPane BuildNumbersGrid() {
-		
+		//builds bottom numbers list.
 		Sudoku s = this.game.getSudoku();
 		SudokuStyler ss = new SudokuStyler(s);
 		GridPane gridPaneNumbers = new GridPane();
@@ -215,6 +215,21 @@ public class SudokuController implements Initializable {
 			// Add the pane to the grid
 			gridPaneNumbers.add(paneSource, iCol, 0);
 		}
+		
+		//SudokuCell extends containerControl, StackPane. Put trash can in the container control.
+		
+		StackPane rmTrashCan = new StackPane();
+		ImageView tc = new ImageView(this.GetPortalTrashCanImage());
+		tc.setFitHeight(50);
+		tc.setFitWidth(50);
+		rmTrashCan.getChildren().add(tc);
+		
+		
+		
+		
+
+		
+		gridPaneNumbers.add(rmTrashCan,s.getiSize()+1,0);
 		return gridPaneNumbers;
 	}
 
@@ -325,7 +340,7 @@ public class SudokuController implements Initializable {
 						Cell CellTo = (Cell) paneTarget.getCell();
 						
 						//This will keep track of the mistakes.
-						int mistakeCounter = 0;
+						//private Sudoku int mistakeCounter = 0;
 						
 						//insert some sort of loop to check mistakes as the game is being played.
 						
@@ -389,6 +404,10 @@ public class SudokuController implements Initializable {
 	}
 	private Image GetImage(int iValue) {
 		InputStream is = getClass().getClassLoader().getResourceAsStream("img/" + iValue + ".png");
+		return new Image(is);
+	}
+	private Image GetPortalTrashCanImage() {
+		InputStream is = getClass().getClassLoader().getResourceAsStream("img/trashcan.png");
 		return new Image(is);
 	}
 }
