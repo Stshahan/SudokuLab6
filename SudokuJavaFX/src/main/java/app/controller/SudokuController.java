@@ -225,7 +225,7 @@ public class SudokuController implements Initializable {
 		rmTrashCan.getChildren().add(tc);
 		
 		
-		
+		 
 		
 
 		
@@ -355,6 +355,7 @@ public class SudokuController implements Initializable {
 
 							if (!s.isValidValue(CellTo.getiRow(), CellTo.getiCol(), CellFrom.getiCellValue())) {
 								
+								
 								//	Add a mistake
 								game.getSudoku().AddMistake();
 								BuildTopGrid();
@@ -362,9 +363,21 @@ public class SudokuController implements Initializable {
 								//TODO: Set the message for mistakes
 								if (game.getShowHints()) {
 									//insert code here(Ryan)
-								}
-							}
-
+									
+									/*this is the logic for turning a cell red. 
+									  we just need the logic for get row, get column and get region
+									once we have that we can paint the hints using a for loop*/
+									gridPaneSudoku.addRow(CellTo.getiRow(), SudokuStyler.getRedPane());
+									ImageView iv = new ImageView(GetBadImage(CellFrom.getiCellValue()));
+									paneTarget.getCell().setiCellValue(CellFrom.getiCellValue());
+									paneTarget.getChildren().clear();
+									paneTarget.getChildren().add(iv);
+									System.out.println(CellFrom.getiCellValue());
+									success = true;
+									event.setDropCompleted(success);
+									event.consume();
+								}							}
+							if (!game.getShowHints()) {
 							//	This is the code that is actually taking the cell value from the drag-from 
 							//	cell and dropping a new Image into the dragged-to cell
 							ImageView iv = new ImageView(GetImage(CellFrom.getiCellValue()));
@@ -372,15 +385,16 @@ public class SudokuController implements Initializable {
 							paneTarget.getChildren().clear();
 							paneTarget.getChildren().add(iv);
 							System.out.println(CellFrom.getiCellValue());
-							success = true;
+							success = true;}
 						}
 						event.setDropCompleted(success);
 						event.consume();
 					}
 				});
-
-				gridPaneSudoku.add(paneTarget, iCol, iRow); // Add the pane to the grid
+				//paneTarget.getChildren().add(0, SudokuStyler.getRedPane());
+				 // Add the pane to the grid
 				
+				gridPaneSudoku.add(paneTarget, iCol, iRow); 
 				if (game.getSudoku().isPuzzleMaxMistakes())
 				{
 					//	Game is over...  Max Mistakes reached
@@ -406,8 +420,21 @@ public class SudokuController implements Initializable {
 		InputStream is = getClass().getClassLoader().getResourceAsStream("img/" + iValue + ".png");
 		return new Image(is);
 	}
+<<<<<<< HEAD
 	private Image GetPortalTrashCanImage() {
 		InputStream is = getClass().getClassLoader().getResourceAsStream("img/trashcan.png");
 		return new Image(is);
 	}
+=======
+
+private Image GetBadImage(int iValue) {
+	InputStream is = getClass().getClassLoader().getResourceAsStream("badimg/" + iValue + ".png");
+	return new Image(is);
+}
+
+
+		
+		//, CellTo.getiCol(), CellFrom.getiCellValue())) {
+		
+>>>>>>> branch 'master' of https://github.com/Stshahan/SudokuLab6.git
 }
