@@ -98,5 +98,6 @@ public class Game extends Application {
 	public boolean getShowHints() {
 		return this.GBC.getShowHints();
 	}
-
+int test;
 }
+//sts

@@ -352,9 +352,10 @@ public class SudokuController implements Initializable {
 						//		If the number of mistakes >= max mistakes, end the game
 						if (db.hasContent(myFormat)) {
 							Cell CellFrom = (Cell) db.getContent(myFormat);
-
+							
 							if (!s.isValidValue(CellTo.getiRow(), CellTo.getiCol(), CellFrom.getiCellValue())) {
 								
+								s.ChangeSudoku(CellTo.getiRow(),  CellTo.getiCol(), CellFrom.getiCellValue());
 								
 								//	Add a mistake
 								game.getSudoku().AddMistake();
@@ -367,7 +368,7 @@ public class SudokuController implements Initializable {
 									/*this is the logic for turning a cell red. 
 									  we just need the logic for get row, get column and get region
 									once we have that we can paint the hints using a for loop*/
-									gridPaneSudoku.addRow(CellTo.getiRow(), SudokuStyler.getRedPane());
+									//gridPaneSudoku.addRow(CellTo.getiRow(), SudokuStyler.getRedPane());
 									ImageView iv = new ImageView(GetBadImage(CellFrom.getiCellValue()));
 									paneTarget.getCell().setiCellValue(CellFrom.getiCellValue());
 									paneTarget.getChildren().clear();
@@ -376,20 +377,40 @@ public class SudokuController implements Initializable {
 									success = true;
 									event.setDropCompleted(success);
 									event.consume();
-								}							}
-							if (!game.getShowHints()) {
-							//	This is the code that is actually taking the cell value from the drag-from 
-							//	cell and dropping a new Image into the dragged-to cell
-							ImageView iv = new ImageView(GetImage(CellFrom.getiCellValue()));
-							paneTarget.getCell().setiCellValue(CellFrom.getiCellValue());
-							paneTarget.getChildren().clear();
-							paneTarget.getChildren().add(iv);
-							System.out.println(CellFrom.getiCellValue());
-							success = true;}
+									
+									
+									/*ImageView Badiv = new ImageView(GetBadImage(s.getPuzzle()[CellTo.getiRow()][CellTo.getiCol()]));
+										//for(int iCol = 0; iCol<s.getiSize();iCol++){
+									int iCol = 0;
+										Badiv = new ImageView(GetBadImage(s.getPuzzle()[CellTo.getiRow()][iCol]));
+										paneTarget.getCell().setiCellValue(s.getPuzzle()[CellTo.getiRow()][iCol]);
+										paneTarget.getChildren().clear();
+										paneTarget.getChildren().add(Badiv);
+										//success = true;
+										//event.setDropCompleted(success);
+									
+										//gridPaneSudoku.add(paneTarget, iCol, CellTo.getiRow()); 
+										
+										//event.consume();*/
+										//}
+										
+									
+									
+								}						}	
+							if (!game.getShowHints()||(game.getShowHints() && s.isValidValue(CellTo.getiRow(), CellTo.getiCol(), CellFrom.getiCellValue())) ) {
+								//	This is the code that is actually taking the cell value from the drag-from 
+								//	cell and dropping a new Image into the dragged-to cell
+								s.ChangeSudoku(CellTo.getiRow(),  CellTo.getiCol(), CellFrom.getiCellValue());
+								ImageView iv = new ImageView(GetImage(CellFrom.getiCellValue()));
+								paneTarget.getCell().setiCellValue(CellFrom.getiCellValue());
+								paneTarget.getChildren().clear();
+								paneTarget.getChildren().add(iv);
+								success = true;}
 						}
 						event.setDropCompleted(success);
 						event.consume();
 					}
+					
 				});
 				//paneTarget.getChildren().add(0, SudokuStyler.getRedPane());
 				 // Add the pane to the grid
@@ -420,12 +441,12 @@ public class SudokuController implements Initializable {
 		InputStream is = getClass().getClassLoader().getResourceAsStream("img/" + iValue + ".png");
 		return new Image(is);
 	}
-<<<<<<< HEAD
+
 	private Image GetPortalTrashCanImage() {
 		InputStream is = getClass().getClassLoader().getResourceAsStream("img/trashcan.png");
 		return new Image(is);
 	}
-=======
+
 
 private Image GetBadImage(int iValue) {
 	InputStream is = getClass().getClassLoader().getResourceAsStream("badimg/" + iValue + ".png");
@@ -436,5 +457,5 @@ private Image GetBadImage(int iValue) {
 		
 		//, CellTo.getiCol(), CellFrom.getiCellValue())) {
 		
->>>>>>> branch 'master' of https://github.com/Stshahan/SudokuLab6.git
+
 }

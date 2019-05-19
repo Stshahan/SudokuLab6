@@ -401,6 +401,13 @@ public class Sudoku extends LatinSquare implements Serializable {
 	 * @param iValue
 	 * @return
 	 */
+	public void ChangeSudoku(int iRow, int iCol, int entry){
+		int [][] newPuzzle = this.getPuzzle();
+		newPuzzle [iRow][iCol] = entry;
+		this.setLatinSquare(newPuzzle);
+	}
+		
+	
 	public boolean isValidValue(SudokuCell c, int iValue) {
 		return this.isValidValue(c.getiRow(), c.getiCol(), iValue);
 	}
@@ -837,7 +844,6 @@ public class Sudoku extends LatinSquare implements Serializable {
 		return false;
 	}
 
-	
 	
 	/**
 	 * Cell - private class that handles possible remaining values
