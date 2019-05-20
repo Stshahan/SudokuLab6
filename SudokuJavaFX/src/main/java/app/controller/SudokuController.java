@@ -363,7 +363,7 @@ public class SudokuController implements Initializable {
 								
 								//TODO: Set the message for mistakes
 								if (game.getShowHints()) {
-									//insert code here(Ryan)
+									//insert code here
 									
 									/*this is the logic for turning a cell red. 
 									  we just need the logic for get row, get column and get region
@@ -378,20 +378,31 @@ public class SudokuController implements Initializable {
 									event.setDropCompleted(success);
 									event.consume();
 									
-									//TODO: fix duplicate children problem. 
-									/*for(int startPosition= CellTo.getiCellValue() - (CellTo.getiCellValue()%s.getiSize()); startPosition<(startPosition+s.getiSize());startPosition++) {
+					//Shaun's problem				//TODO: fix duplicate children problem. 
+									for(int startPosition= CellTo.getiCellValue() - (CellTo.getiCellValue()%s.getiSize()); startPosition<(startPosition+s.getiSize());startPosition++) {
 										CellTo.setiCellValue(startPosition);
 										for(int iCol = 0; iCol<s.getiSize();iCol++){
+											
 										ImageView badiv = new ImageView(GetBadImage(s.getPuzzle()[CellTo.getiRow()][iCol]));
+										
 										paneTarget.getCell().setiCellValue(s.getPuzzle()[CellTo.getiRow()][iCol]);
 										paneTarget.getChildren().clear();
+										
+										//Ryan's code
+										if((Object)startPosition instanceof Pane ) {
+											paneTarget.getChildren().remove(startPosition);
+										}
+										//SudokuStyler.RemoveGridStyling(gridPaneSudoku);
+
+										
+										
 										paneTarget.getChildren().add(badiv);
 										success = true;
 										event.setDropCompleted(success);
-										//gridPaneSudoku.add(paneTarget, iCol, CellTo.getiRow()); 
+										gridPaneSudoku.add(paneTarget, iCol, CellTo.getiRow()); 
 										event.consume();
 										}
-										}*/
+										}
 										
 									
 									
