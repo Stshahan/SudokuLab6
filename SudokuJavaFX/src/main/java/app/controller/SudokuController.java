@@ -378,21 +378,20 @@ public class SudokuController implements Initializable {
 									event.setDropCompleted(success);
 									event.consume();
 									
-									
-									/*ImageView Badiv = new ImageView(GetBadImage(s.getPuzzle()[CellTo.getiRow()][CellTo.getiCol()]));
-										//for(int iCol = 0; iCol<s.getiSize();iCol++){
-									int iCol = 0;
-										Badiv = new ImageView(GetBadImage(s.getPuzzle()[CellTo.getiRow()][iCol]));
+									//TODO: fix duplicate children problem. 
+									/*for(int startPosition= CellTo.getiCellValue() - (CellTo.getiCellValue()%s.getiSize()); startPosition<(startPosition+s.getiSize());startPosition++) {
+										CellTo.setiCellValue(startPosition);
+										for(int iCol = 0; iCol<s.getiSize();iCol++){
+										ImageView badiv = new ImageView(GetBadImage(s.getPuzzle()[CellTo.getiRow()][iCol]));
 										paneTarget.getCell().setiCellValue(s.getPuzzle()[CellTo.getiRow()][iCol]);
 										paneTarget.getChildren().clear();
-										paneTarget.getChildren().add(Badiv);
-										//success = true;
-										//event.setDropCompleted(success);
-									
+										paneTarget.getChildren().add(badiv);
+										success = true;
+										event.setDropCompleted(success);
 										//gridPaneSudoku.add(paneTarget, iCol, CellTo.getiRow()); 
-										
-										//event.consume();*/
-										//}
+										event.consume();
+										}
+										}*/
 										
 									
 									
