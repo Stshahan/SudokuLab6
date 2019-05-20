@@ -391,7 +391,7 @@ public class SudokuController implements Initializable {
 										//Ryan's code
 										if((Object)startPosition instanceof Pane ) {
 											paneTarget.getChildren().remove(startPosition);
-										}
+										} //I imagine this would erase the existing gridPanes before painting the red ones on it.
 										//SudokuStyler.RemoveGridStyling(gridPaneSudoku);
 
 										
