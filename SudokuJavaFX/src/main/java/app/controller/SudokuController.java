@@ -63,7 +63,7 @@ public class SudokuController implements Initializable {
 
 	private int iCellSize = 45;
 	private static final DataFormat myFormat = new DataFormat("com.cisc181.Data.Cell");
-
+	private static final DataFormat myTrashFormat = new DataFormat("com.cisc181.trashcan");
 	private eGameDifficulty eGD = null;
 	private Sudoku s = null;
 
@@ -223,11 +223,25 @@ public class SudokuController implements Initializable {
 		tc.setFitHeight(50);
 		tc.setFitWidth(50);
 		rmTrashCan.getChildren().add(tc);
-		
-		
+		// 3 events to implement
+		//each puzzle peice is a paneTarget
+		//setOnDragDetected
+		//
+		rmTrashCan.setOnDragDropped(new EventHandler<DragEvent>() 
+		{//mistakes here
+			public void handle(DragEvent event) {
+				Dragboard db = event.getDragboard();
+				boolean success = false;
+				
 		 
-		
-
+				if (db.hasContent(myTrashFormat)) {
+					Cell CellFrom = (Cell) db.getContent(myTrashFormat);
+					
+					event.setDropCompleted(success);
+					event.consume();
+				}
+			}
+		});
 		
 		gridPaneNumbers.add(rmTrashCan,s.getiSize()+1,0);
 		return gridPaneNumbers;
@@ -283,6 +297,22 @@ public class SudokuController implements Initializable {
 					System.out.println(paneTarget.getCell().getiCellValue());
 				});
 
+				//Added by Ryan
+				paneTarget.setOnDragDetected(new EventHandler<MouseEvent>() {
+					public void handle(MouseEvent event) {
+
+						/* allow any transfer mode */
+						Dragboard db = paneTarget.startDragAndDrop(TransferMode.ANY);
+
+						/* put a string on dragboard */
+						// Put the Cell on the clipboard, on the other side, cast as a cell
+						ClipboardContent content = new ClipboardContent();
+						content.put(myTrashFormat, paneTarget.getCell());
+						db.setContent(content);
+						event.consume();
+					}
+				});
+				
 				// Fire this method as something is being dragged over a cell
 				// I'm checking the cell value... if it's not zero... don't let it be dropped
 				// (show the circle-with-line-through)
