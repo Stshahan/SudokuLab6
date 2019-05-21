@@ -250,18 +250,12 @@ public class SudokuController implements Initializable {
 		 
 				if (db.hasContent(myTrashFormat)) {
 					Cell CellFrom = (Cell) db.getContent(myTrashFormat);
-					Cell heldCell = CellFrom;
 					game.getSudoku().PrintPuzzle();
 					event.setDropCompleted(success);
-					
-					
-					
-					
-					
 					event.consume();
-					BuildGrids();//it's not getting rid of the cell/
-					heldCell.setiCellValue(0);
-					
+					s.ChangeSudoku(CellFrom.getiRow(),  CellFrom.getiCol(), 0);
+					BuildGrids();
+					CellFrom.setiCellValue(0);
 				}
 			}
 		});
@@ -422,6 +416,31 @@ public class SudokuController implements Initializable {
 									  we just need the logic for get row, get column and get region
 									once we have that we can paint the hints using a for loop*/
 									//gridPaneSudoku.addRow(CellTo.getiRow(), SudokuStyler.getRedPane());
+									
+									/*if (s.hasDuplicates(s.getRegion(CellTo.getiCol(), CellTo.getiRow()))) {
+										int [] copy = new int [s.getiSize()];
+										int [] zeros = new int [s.getiSize()];
+										copy=s.getRegion(CellTo.getiCol(), CellTo.getiRow());
+										//for(int iCol = 0; iCol<s.getiSize();iCol++){
+										s.SetRegion(s.getRegionNbr(CellTo.getiCol(), CellTo.getiRow()),zeros);
+										BuildGrids();
+										for (int k=0;k<s.getiSize();k++) {
+											int r = s.getRegionNbr(CellTo.getiCol(), CellTo.getiRow());
+											int iSqrtSize = (int) Math.sqrt(s.getiSize());
+											for (int i = (r / iSqrtSize) * iSqrtSize; i < ((r / iSqrtSize) * iSqrtSize) + iSqrtSize; i++) {
+												for (int j = (r % iSqrtSize) * iSqrtSize; j < ((r % iSqrtSize) * iSqrtSize) + iSqrtSize; j++) {
+											ImageView iv = new ImageView(GetBadImage(copy[k]));
+											paneTarget.getCell().setiCellValue(copy[k]);
+											paneTarget.getChildren().clear();
+											paneTarget.getChildren().add(iv);
+											success = true;
+											event.setDropCompleted(success);
+											gridPaneSudoku.add(paneTarget, CellTo.getiCol(), CellTo.getiRow());
+											event.consume();
+												}
+											}
+										}
+									}*/
 									ImageView iv = new ImageView(GetBadImage(CellFrom.getiCellValue()));
 									paneTarget.getCell().setiCellValue(CellFrom.getiCellValue());
 									paneTarget.getChildren().clear();

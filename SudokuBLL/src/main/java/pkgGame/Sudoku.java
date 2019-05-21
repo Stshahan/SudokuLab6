@@ -537,7 +537,7 @@ public class Sudoku extends LatinSquare implements Serializable {
 	}
 	
 	
-	private void SetRegion(int r, int[] values) {
+	public void SetRegion(int r, int[] values) {
 		int iValue = 0;
 		for (int i = (r / iSqrtSize) * iSqrtSize; i < ((r / iSqrtSize) * iSqrtSize) + iSqrtSize; i++) {
 			for (int j = (r % iSqrtSize) * iSqrtSize; j < ((r % iSqrtSize) * iSqrtSize) + iSqrtSize; j++) {
