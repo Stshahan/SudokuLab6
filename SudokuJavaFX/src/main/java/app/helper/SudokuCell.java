@@ -18,4 +18,4 @@ public class SudokuCell extends StackPane implements Serializable {
 		return cell;
 	}
 
-}
+} 

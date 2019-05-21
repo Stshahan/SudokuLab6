@@ -250,13 +250,18 @@ public class SudokuController implements Initializable {
 		 
 				if (db.hasContent(myTrashFormat)) {
 					Cell CellFrom = (Cell) db.getContent(myTrashFormat);
+					Cell heldCell = CellFrom;
 					game.getSudoku().PrintPuzzle();
 					event.setDropCompleted(success);
+					
+					
+					
+					
+					
 					event.consume();
+					BuildGrids();//it's not getting rid of the cell/
+					heldCell.setiCellValue(0);
 					
-					BuildGrids();
-					
-					CellFrom.setiCellValue(0);
 				}
 			}
 		});
