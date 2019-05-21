@@ -15,7 +15,7 @@ import pkgEnum.eGameDifficulty;
 public class GameBorderController implements Initializable {
 
 	private Game game;
-
+//sts
 	@FXML
 	private ToggleGroup tglSudokuSize;
 
